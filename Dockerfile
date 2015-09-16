@@ -37,6 +37,8 @@ RUN (\
 )
 
 
+# Remove default Apache config files
+RUN rm -rf /usr/local/apache/conf/*
 
 RUN sed -i -e "s/!\/replace\/with\/path\/to\/perl\/interpreter -w/!\/usr\/bin\/perl -w/g" /usr/local/apache/bin/apxs
 
@@ -165,6 +167,7 @@ RUN (\
 )
 
 RUN echo "zend_extension = /usr/lib64/php/20090626/xdebug.so" >> /etc/php.ini 
+
 
 ADD apache-run.sh /apache-run.sh
 RUN chmod 0500 /apache-run.sh
