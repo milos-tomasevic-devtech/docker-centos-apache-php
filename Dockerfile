@@ -142,7 +142,7 @@ RUN (\
 )
 
 
-RUN sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /usr/local/apache/conf/httpd.conf
+#RUN sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(Include conf\/extra\/httpd-vhosts.conf\)$/Include conf\/extra\/*.conf/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(EnableMMAP off\)$/\1/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(EnableSendfile off\)$/\1/g" /usr/local/apache/conf/httpd.conf
