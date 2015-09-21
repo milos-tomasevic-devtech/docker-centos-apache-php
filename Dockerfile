@@ -144,8 +144,13 @@ RUN (\
 
 RUN sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(Include conf\/extra\/httpd-vhosts.conf\)$/Include conf\/extra\/*.conf/g" /usr/local/apache/conf/httpd.conf
+RUN sed -i -e "s/^#\(EnableMMAP off\)$/\1/g" /usr/local/apache/conf/httpd.conf
+RUN sed -i -e "s/^#\(EnableSendfile off\)$/\1/g" /usr/local/apache/conf/httpd.conf
 
-
+# service
+RUN sed -i -e "s/^\(httpd\)=\${\(HTTPD\)-.\+}$/\1=\${\2-\/usr\/local\/apache\/bin\/httpd}/g" /etc/rc.d/init.d/httpd
+RUN sed -i -e "s/^\(pidfile\)=\${\(PIDFILE\)-.\+}$/\1=\${\2-\/usr\/local\/apache\/logs\/httpd\.pid}/g" /etc/rc.d/init.d/httpd
+RUN sed -i -e "s/CONFFILE=.\+$/CONFFILE=\/usr\/local\/apache\/conf\/httpd\.conf/g" /etc/rc.d/init.d/httpd
 
 # Adds MIME type for PHP inside Apache config
 RUN echo "AddType application/x-httpd-php .php" >> /usr/local/apache/conf/httpd.conf
