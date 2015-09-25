@@ -37,9 +37,6 @@ RUN (\
 )
 
 
-# Remove default Apache config files
-RUN rm -rf /usr/local/apache/conf/*
-
 RUN sed -i -e "s/!\/replace\/with\/path\/to\/perl\/interpreter -w/!\/usr\/bin\/perl -w/g" /usr/local/apache/bin/apxs
 
 
@@ -142,7 +139,7 @@ RUN (\
 )
 
 
-#RUN sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /usr/local/apache/conf/httpd.conf
+RUN sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(Include conf\/extra\/httpd-vhosts.conf\)$/Include conf\/extra\/*.conf/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(EnableMMAP off\)$/\1/g" /usr/local/apache/conf/httpd.conf
 RUN sed -i -e "s/^#\(EnableSendfile off\)$/\1/g" /usr/local/apache/conf/httpd.conf
